@@ -1,4 +1,4 @@
-package com.garcia.felipe.redditapp.Helpers;
+package com.garcia.felipe.redditapp.Helpers.LocalStorage;
 
 import android.app.Activity;
 import android.content.Context;

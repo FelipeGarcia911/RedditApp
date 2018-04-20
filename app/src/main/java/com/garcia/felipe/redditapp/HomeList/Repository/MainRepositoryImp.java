@@ -4,9 +4,13 @@ import com.garcia.felipe.redditapp.Helpers.AsyncHttpClientHelper;
 import com.garcia.felipe.redditapp.Helpers.Constants;
 import com.garcia.felipe.redditapp.Helpers.EventBus.GreenRobotEventBus;
 import com.garcia.felipe.redditapp.Helpers.HttpConnectionHelper;
+import com.garcia.felipe.redditapp.Helpers.LocalStorage.ListLocalStorageHelper;
 import com.garcia.felipe.redditapp.HomeList.Events.DataEvent;
+import com.garcia.felipe.redditapp.Models.RedditItem;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -40,13 +44,15 @@ public class MainRepositoryImp implements MainRepository {
     }
 
     @Override
-    public void getDataFromLocalStorage() {
-
+    public ArrayList<RedditItem> getDataFromLocalStorage() {
+        ListLocalStorageHelper listLocalStorageHelper = ListLocalStorageHelper.getInstance();
+        return listLocalStorageHelper.getList();
     }
 
     @Override
-    public void saveDataToLocalStorage() {
-
+    public void saveDataToLocalStorage(ArrayList<RedditItem> items) {
+        ListLocalStorageHelper listLocalStorageHelper = ListLocalStorageHelper.getInstance();
+        listLocalStorageHelper.saveList(items);
     }
 
     private void onGetDatSuccess(){

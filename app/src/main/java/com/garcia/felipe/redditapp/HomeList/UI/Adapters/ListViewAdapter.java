@@ -29,4 +29,19 @@ public class ListViewAdapter extends RecyclerView.Adapter implements ListViewAda
     public int getItemCount() {
         return 0;
     }
+
+    @Override
+    public void add(RedditItem object) {
+
+    }
+
+    @Override
+    public void update(RedditItem object) {
+
+    }
+
+    @Override
+    public void remove(RedditItem object) {
+
+    }
 }

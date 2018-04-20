@@ -1,6 +1,5 @@
 package com.garcia.felipe.redditapp.Main.Presenter;
 
-import com.garcia.felipe.redditapp.Main.UI.MainActivity;
 import com.garcia.felipe.redditapp.Main.UI.MainView;
 
 public class MainPresenterImp implements MainPresenter {

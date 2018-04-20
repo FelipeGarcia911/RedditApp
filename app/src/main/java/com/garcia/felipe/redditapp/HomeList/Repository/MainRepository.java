@@ -1,8 +1,14 @@
 package com.garcia.felipe.redditapp.HomeList.Repository;
 
+import com.garcia.felipe.redditapp.Models.RedditItem;
+
+import java.util.ArrayList;
+
 public interface MainRepository {
 
     void getDataFromServer();
-    void getDataFromLocalStorage();
-    void saveDataToLocalStorage();
+
+    ArrayList<RedditItem> getDataFromLocalStorage();
+
+    void saveDataToLocalStorage(ArrayList<RedditItem> items);
 }
