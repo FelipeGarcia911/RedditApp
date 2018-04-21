@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:background="@drawable/card"
+    android:layout_height="120dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/thumbnailImage"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_gravity="center|top"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_launcher_round"
+        app:civ_border_width="1dp"
+        app:civ_border_color="@color/colorAccent"/>
+
+    <LinearLayout
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="10dp"
+        android:orientation="vertical"
+        android:layout_weight="3"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:textStyle="bold"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="TextView"
+            />
+
+        <TextView
+            android:id="@+id/shortDescription"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="TextView" />
+    </LinearLayout>
+
+</android.widget.LinearLayout>

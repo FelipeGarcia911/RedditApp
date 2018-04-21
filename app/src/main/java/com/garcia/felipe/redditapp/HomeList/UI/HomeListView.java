@@ -1,6 +1,6 @@
 package com.garcia.felipe.redditapp.HomeList.UI;
 
-import com.garcia.felipe.redditapp.Models.RedditItem;
+import com.garcia.felipe.redditapp.Models.RedditPost;
 
 import java.util.ArrayList;
 
@@ -15,17 +15,11 @@ public interface HomeListView {
 
     void hideProgressDialog();
 
-    void setItemsToListView(ArrayList<RedditItem> items);
-
-    void addItemToListView(RedditItem object);
-
-    void updateItemToListView(RedditItem object);
-
-    void removeComplaintItemToListView(RedditItem object);
+    void setItemsToListView(ArrayList<RedditPost> items);
 
     void moveVerticalScrollPosition(int scrollPosition);
 
     int getVerticalScrollRange();
 
-    void onClickListener(RedditItem object);
+    void onClickListener(RedditPost object);
 }

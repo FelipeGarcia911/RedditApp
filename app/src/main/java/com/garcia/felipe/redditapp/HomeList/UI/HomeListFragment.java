@@ -16,7 +16,8 @@ import com.garcia.felipe.redditapp.Helpers.Image.ImageLoader;
 import com.garcia.felipe.redditapp.Helpers.SimpleProgressDialogHelper;
 import com.garcia.felipe.redditapp.HomeList.Presenter.HomeListPresenterImp;
 import com.garcia.felipe.redditapp.HomeList.UI.Adapters.ListViewAdapter;
-import com.garcia.felipe.redditapp.Models.RedditItem;
+import com.garcia.felipe.redditapp.HomeList.UI.Adapters.OnItemClickListener;
+import com.garcia.felipe.redditapp.Models.RedditPost;
 import com.garcia.felipe.redditapp.R;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeListFragment extends Fragment implements HomeListView {
+public class HomeListFragment extends Fragment implements HomeListView, OnItemClickListener {
 
     private final HomeListPresenterImp presenter;
     @BindView(R.id.swipe_refresh_layout) SwipyRefreshLayout swipeRefreshLayout;
@@ -70,7 +71,7 @@ public class HomeListFragment extends Fragment implements HomeListView {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        listAdapter = new ListViewAdapter(new ArrayList<RedditItem>(), imageLoader, this);
+        listAdapter = new ListViewAdapter(new ArrayList<RedditPost>(), imageLoader, this);
         recyclerView.setAdapter(listAdapter);
 
         presenter.initListView();
@@ -139,29 +140,15 @@ public class HomeListFragment extends Fragment implements HomeListView {
     }
 
     @Override
-    public void setItemsToListView(ArrayList<RedditItem> items) {
+    public void setItemsToListView(ArrayList<RedditPost> items) {
         listAdapter = new ListViewAdapter(items, imageLoader, this);
         if (recyclerView != null) {
             recyclerView.setAdapter(listAdapter);
         }
     }
 
-    @Override
-    public void addItemToListView(RedditItem object) {
-        listAdapter.add(object);
-    }
-
-    @Override
-    public void updateItemToListView(RedditItem object) {
-        listAdapter.update(object);
-    }
-
     //----------------------------------------------------------------------------------------------
 
-    @Override
-    public void removeComplaintItemToListView(RedditItem object) {
-        listAdapter.remove(object);
-    }
 
     @Override
     public void moveVerticalScrollPosition(int scrollPosition) {
@@ -182,7 +169,23 @@ public class HomeListFragment extends Fragment implements HomeListView {
     }
 
     @Override
-    public void onClickListener(RedditItem object) {
-        presenter.onComplaintClick(object);
+    public void onClickListener(RedditPost object) {
+        presenter.onItemClick(object);
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onClick(RedditPost item) {
+        presenter.onItemClick(item);
+    }
+
+    @Override
+    public void onLongClick(RedditPost item) {
+        presenter.onItemClick(item);
     }
 }

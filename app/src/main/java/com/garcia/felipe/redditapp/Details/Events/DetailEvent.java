@@ -1,17 +1,14 @@
-package com.garcia.felipe.redditapp.HomeList.Events;
+package com.garcia.felipe.redditapp.Details.Events;
 
 import com.garcia.felipe.redditapp.Models.RedditPost;
 
-import java.util.ArrayList;
+public class DetailEvent {
 
-public class DataEvent {
-
-    public static final int ON_SUCCESS = 1;
-    public static final int ON_FAILURE = 0;
+    public static final int ON_DETAIL_REQUEST = 0;
 
     private int eventType;
     private String msgError;
-    private ArrayList<RedditPost> list;
+    private RedditPost item;
 
     public int getEventType() {
         return eventType;
@@ -29,11 +26,11 @@ public class DataEvent {
         this.msgError = msgError;
     }
 
-    public ArrayList<RedditPost> getList() {
-        return list;
+    public RedditPost getItem() {
+        return item;
     }
 
-    public void setList(ArrayList<RedditPost> list) {
-        this.list = list;
+    public void setItem(RedditPost item) {
+        this.item = item;
     }
 }

@@ -1,6 +1,6 @@
 package com.garcia.felipe.redditapp.Helpers.LocalStorage;
 
-import com.garcia.felipe.redditapp.Models.RedditItem;
+import com.garcia.felipe.redditapp.Models.RedditPost;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -25,20 +25,20 @@ public class ListLocalStorageHelper {
         this.preferencesHelper = SharedPreferencesHelper.getInstance();
     }
 
-    public ArrayList<RedditItem> getList() {
-        ArrayList<RedditItem> list = new ArrayList<>();
+    public ArrayList<RedditPost> getList() {
+        ArrayList<RedditPost> list = new ArrayList<>();
         String jsonString = preferencesHelper.read(LIST_KEY);
         if (jsonString == null || jsonString.isEmpty()) {
             return list;
         } else {
-            Type collectionType = new TypeToken<List<RedditItem>>() {
+            Type collectionType = new TypeToken<List<RedditPost>>() {
             }.getType();
             list = gson.fromJson(jsonString, collectionType);
             return list;
         }
     }
 
-    public void saveList(ArrayList<RedditItem> items) {
+    public void saveList(ArrayList<RedditPost> items) {
         String gsonString = gson.toJson(items);
         preferencesHelper.write(LIST_KEY, gsonString);
     }

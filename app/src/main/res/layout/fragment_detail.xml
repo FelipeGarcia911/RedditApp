@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:padding="2dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Details.UI.DetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <TextView
+           android:text="Reddit Post Title"
+           android:gravity="center"
+           style="@style/Base.TextAppearance.AppCompat.Large"
+           android:textStyle="bold"
+           android:id="@+id/titleDetails"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+
+       <ImageView
+           android:id="@+id/bannerImage"
+           android:src="@mipmap/ic_launcher"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+
+       <ScrollView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <TextView
+               android:id="@+id/descriptionDetails"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content" />
+
+       </ScrollView>
+
+   </LinearLayout>
 
 </FrameLayout>

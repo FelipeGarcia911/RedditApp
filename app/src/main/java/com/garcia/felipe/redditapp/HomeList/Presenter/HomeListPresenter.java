@@ -1,7 +1,7 @@
 package com.garcia.felipe.redditapp.HomeList.Presenter;
 
 import com.garcia.felipe.redditapp.HomeList.Events.ListEvent;
-import com.garcia.felipe.redditapp.Models.RedditItem;
+import com.garcia.felipe.redditapp.Models.RedditPost;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -14,7 +14,7 @@ public interface HomeListPresenter {
     @Subscribe
     void onEventRefreshList(ListEvent event);
 
-    void onComplaintClick(RedditItem object);
+    void onItemClick(RedditPost object);
     void onSwipeTop();
     void onSwipeBottom();
 }

@@ -20,10 +20,7 @@ public class GlideImageLoader implements ImageLoader {
     @Override
     public void load(ImageView imgAvatar, String url) {
         if (url != null && !url.isEmpty()) {
-            requestManager.load(url)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .centerCrop()
-                    .into(imgAvatar);
+            requestManager.load(url).into(imgAvatar);
         }
     }
 }

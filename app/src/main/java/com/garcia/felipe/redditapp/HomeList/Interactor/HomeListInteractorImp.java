@@ -2,8 +2,9 @@ package com.garcia.felipe.redditapp.HomeList.Interactor;
 
 import com.garcia.felipe.redditapp.Helpers.EventBus.GreenRobotEventBus;
 import com.garcia.felipe.redditapp.HomeList.Events.DataEvent;
+import com.garcia.felipe.redditapp.HomeList.Events.ListEvent;
 import com.garcia.felipe.redditapp.HomeList.Repository.MainRepositoryImp;
-import com.garcia.felipe.redditapp.Models.RedditItem;
+import com.garcia.felipe.redditapp.Models.RedditPost;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -13,31 +14,26 @@ public class HomeListInteractorImp implements HomeListInteractor {
 
     private final GreenRobotEventBus eventBus;
     private final MainRepositoryImp repository;
-    private ArrayList<RedditItem> items;
+    private ArrayList<RedditPost> redditPosts;
 
     public HomeListInteractorImp() {
-        this.items = new ArrayList<>();
+        this.redditPosts = new ArrayList<>();
         this.repository = new MainRepositoryImp();
         this.eventBus = GreenRobotEventBus.getInstance();
     }
 
     @Override
     public void refreshList() {
-        ArrayList<RedditItem> dataFromLocalStorage = repository.getDataFromLocalStorage();
-        if (dataFromLocalStorage.size() > 0) {
-            onSuccessGetList(dataFromLocalStorage);
-        } else {
-            repository.getDataFromServer();
-        }
+        repository.getDataFromServer();
     }
 
     @Subscribe
     public void onGetDataFromServerEvent(DataEvent event) {
         switch (event.getEventType()) {
             case DataEvent.ON_SUCCESS:
-                items = event.getList();
-                if (items.size() > 0) repository.saveDataToLocalStorage(items);
-                onSuccessGetList(items);
+                redditPosts = event.getList();
+                if (redditPosts.size() > 0) repository.saveDataToLocalStorage(redditPosts);
+                onSuccessGetList(redditPosts);
                 return;
             case DataEvent.ON_FAILURE:
                 onFailureGetList(event.getMsgError());
@@ -48,26 +44,38 @@ public class HomeListInteractorImp implements HomeListInteractor {
     }
 
     private void onFailureGetList(String message) {
-        DataEvent dataEvent = new DataEvent();
-        dataEvent.setEventType(DataEvent.ON_FAILURE);
-        eventBus.post(dataEvent);
+        ListEvent event = new ListEvent();
+        event.setEventType(DataEvent.ON_FAILURE);
+        event.setMsgError(message);
+        eventBus.post(event);
     }
 
-    private void onSuccessGetList(ArrayList<RedditItem> items) {
-        DataEvent dataEvent = new DataEvent();
-        dataEvent.setEventType(DataEvent.ON_SUCCESS);
-        dataEvent.setList(items);
-        eventBus.post(dataEvent);
+    private void onSuccessGetList(ArrayList<RedditPost> items) {
+        ListEvent event = new ListEvent();
+        event.setEventType(DataEvent.ON_SUCCESS);
+        event.setList(items);
+        eventBus.post(event);
     }
 
 
     @Override
     public void onStartListView() {
-        ArrayList<RedditItem> dataFromLocalStorage = repository.getDataFromLocalStorage();
+        ArrayList<RedditPost> dataFromLocalStorage = repository.getDataFromLocalStorage();
         if (dataFromLocalStorage.size() > 0) {
             onSuccessGetList(dataFromLocalStorage);
         } else {
-            onFailureGetList("Empty local data.");
+            onFailureGetList("Empty local data, getting data from server...");
+            repository.getDataFromServer();
         }
+    }
+
+    @Override
+    public void onCreate() {
+        eventBus.register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        eventBus.unregister(this);
     }
 }

@@ -1,10 +1,11 @@
 package com.garcia.felipe.redditapp.HomeList.Presenter;
 
+import com.garcia.felipe.redditapp.Details.Events.DetailEvent;
 import com.garcia.felipe.redditapp.Helpers.EventBus.GreenRobotEventBus;
 import com.garcia.felipe.redditapp.HomeList.Events.ListEvent;
 import com.garcia.felipe.redditapp.HomeList.Interactor.HomeListInteractorImp;
 import com.garcia.felipe.redditapp.HomeList.UI.HomeListView;
-import com.garcia.felipe.redditapp.Models.RedditItem;
+import com.garcia.felipe.redditapp.Models.RedditPost;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -44,7 +45,7 @@ public class HomeListPresenterImp implements HomeListPresenter {
         }
     }
 
-    private void onSuccessRefreshList(ArrayList<RedditItem> items) {
+    private void onSuccessRefreshList(ArrayList<RedditPost> items) {
         if (view != null) {
             view.hideSwipeProgressBar();
             view.setItemsToListView(items);
@@ -62,8 +63,10 @@ public class HomeListPresenterImp implements HomeListPresenter {
 
 
     @Override
-    public void onComplaintClick(RedditItem object) {
-
+    public void onItemClick(RedditPost object) {
+        DetailEvent event = new DetailEvent();
+        event.setItem(object);
+        eventBus.post(event);
     }
 
     //----------------------------------------------------------------------------------------------
@@ -96,12 +99,14 @@ public class HomeListPresenterImp implements HomeListPresenter {
     @Override
     public void onCreate() {
         eventBus.register(this);
+        interactor.onCreate();
     }
 
     @Override
     public void onDestroy() {
         view = null;
         eventBus.unregister(this);
+        interactor.onDestroy();
     }
 
 }
