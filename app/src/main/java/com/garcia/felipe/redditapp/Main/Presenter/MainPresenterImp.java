@@ -30,7 +30,7 @@ public class MainPresenterImp implements MainPresenter {
     }
 
     @Override
-    public void onMainItemClick() {
+    public void onNavHomeList() {
         if (view != null){
             view.navToHomeListViewFragment();
         }
@@ -46,5 +46,10 @@ public class MainPresenterImp implements MainPresenter {
     public void onDestroy() {
         view = null;
         eventBus.unregister(this);
+    }
+
+    @Override
+    public void onNavAbout() {
+        view.navToAboutFragment();
     }
 }

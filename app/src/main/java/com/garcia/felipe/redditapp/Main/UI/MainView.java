@@ -6,6 +6,7 @@ public interface MainView {
 
     void navToDetailsFragment(RedditPost item);
     void navToHomeListViewFragment();
-
     void showMessage(String string);
+
+    void navToAboutFragment();
 }

@@ -64,8 +64,7 @@ public class HomeListInteractorImp implements HomeListInteractor {
         if (dataFromLocalStorage.size() > 0) {
             onSuccessGetList(dataFromLocalStorage);
         } else {
-            onFailureGetList("Empty local data, getting data from server...");
-            repository.getDataFromServer();
+            onFailureGetList("Empty local data, please pull to download the new posts.");
         }
     }
 

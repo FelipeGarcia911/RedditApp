@@ -1,15 +1,20 @@
 package com.garcia.felipe.redditapp.Models;
 
-import java.util.Date;
+import android.text.Html;
+import android.text.format.DateFormat;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 public class RedditPost {
 
-    private Date date;
+    private String date;
     private String title;
     private String shortDescription;
     private String longDescription;
     private String iconImageURL;
     private String bannerImageURL;
+    private String category;
 
     public RedditPost(String title, String shortDescription, String imageURL) {
         this.title = title;
@@ -22,7 +27,7 @@ public class RedditPost {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = (title);
     }
 
     public String getShortDescription() {
@@ -30,7 +35,7 @@ public class RedditPost {
     }
 
     public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
+        this.shortDescription = HTMLEscape(shortDescription);
     }
 
     public String getIconImageURL() {
@@ -41,11 +46,11 @@ public class RedditPost {
         this.iconImageURL = iconImageURL;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -54,11 +59,13 @@ public class RedditPost {
     }
 
     public void setLongDescription(String longDescription) {
-        this.longDescription = longDescription;
+        this.longDescription = HTMLEscape(longDescription);
     }
 
-    public void setDateFromStringUTC(String utc_time){
-        
+    public void setDateFromStringUTC(long timestapm) {
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(timestapm * 1000);
+        this.date = DateFormat.format("dd-MM-yyyy", cal).toString();
     }
 
     public String getBannerImageURL() {
@@ -68,4 +75,20 @@ public class RedditPost {
     public void setBannerImageURL(String bannerImageURL) {
         this.bannerImageURL = bannerImageURL;
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        if (category.isEmpty() || category.toLowerCase().equals("null")) {
+            category = "";
+        }
+        this.category = category;
+    }
+
+    private String HTMLEscape(String html) {
+        return Html.fromHtml(html).toString();
+    }
+
 }

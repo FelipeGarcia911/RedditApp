@@ -39,8 +39,9 @@ public class MainRepositoryImp implements MainRepository {
         asyncHttpClient.get(urlConnection, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                JSONObject jsonObject = connectionHelper.stringBuilderJSONObject(responseBody);
-                handleOnGetDataFromServerSuccess(jsonObject);
+                //JSONObject jsonObject = connectionHelper.stringBuilderJSONObject(responseBody);
+                //handleOnGetDataFromServerSuccess(jsonObject);
+                onGetDatFailure("Error connecting to the server, please try again later.");
             }
 
             @Override
@@ -74,16 +75,18 @@ public class MainRepositoryImp implements MainRepository {
                 JSONObject data = redditPost.getJSONObject("data");
 
                 String title = data.getString("title");
-                String shortDescription = data.getString("public_description");
-                String longDescription = data.getString("description");
+                String shortDescription = data.getString("public_description_html");
+                String longDescription = data.getString("description_html");
                 String iconImageURL = data.getString("icon_img");
                 String bannerImageURL = data.getString("banner_img");
-                String date = data.getString("created_utc");
+                long date = data.getLong("created");
+                String category = data.getString("advertiser_category");
 
                 RedditPost redditItem = new RedditPost(title, shortDescription, iconImageURL);
                 redditItem.setLongDescription(longDescription);
                 redditItem.setBannerImageURL(bannerImageURL);
                 redditItem.setDateFromStringUTC(date);
+                redditItem.setCategory(category);
                 return redditItem;
             }
         });

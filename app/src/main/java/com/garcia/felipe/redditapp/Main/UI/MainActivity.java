@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.garcia.felipe.redditapp.About.AboutFragment;
 import com.garcia.felipe.redditapp.Details.UI.DetailFragment;
 import com.garcia.felipe.redditapp.Helpers.LocalStorage.ListLocalStorageHelper;
 import com.garcia.felipe.redditapp.Helpers.LocalStorage.SharedPreferencesHelper;
@@ -87,10 +88,16 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.nav_camera) {
-            presenter.onMainItemClick();
-        } else{
-            presenter.onMainItemClick();
+        switch (id) {
+            case R.id.nav_list:
+                presenter.onNavHomeList();
+                break;
+            case R.id.nav_about:
+                presenter.onNavAbout();
+                break;
+            default:
+                presenter.onNavHomeList();
+                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -137,6 +144,15 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public void navToAboutFragment() {
+        currentFragment = new AboutFragment();
+        String fragmentName = String.valueOf("About");
+        if (!isFragmentVisible(fragmentName)) {
+            executeFragmentTransaction(currentFragment, fragmentName);
+        }
+    }
+
     private void initializeSingletons() {
         // Initialize Shared Preferences Helper
         SharedPreferencesHelper sharedPreferencesHelper = SharedPreferencesHelper.getInstance();
@@ -144,5 +160,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
 
         ListLocalStorageHelper listLocalStorageHelper = ListLocalStorageHelper.getInstance();
         listLocalStorageHelper.initialize();
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
     }
 }

@@ -5,7 +5,7 @@ import com.garcia.felipe.redditapp.Models.RedditPost;
 
 import org.greenrobot.eventbus.Subscribe;
 
-public interface HomeListPresenter {
+interface HomeListPresenter {
 
     void onCreate();
     void onDestroy();

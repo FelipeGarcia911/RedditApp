@@ -1,9 +1,9 @@
 package com.garcia.felipe.redditapp.Helpers.EventBus;
 
 public class GreenRobotEventBus implements EventBus {
-    final org.greenrobot.eventbus.EventBus eventBus;
+    private final org.greenrobot.eventbus.EventBus eventBus;
 
-    public GreenRobotEventBus() {
+    private GreenRobotEventBus() {
         eventBus = org.greenrobot.eventbus.EventBus.getDefault();
     }
 

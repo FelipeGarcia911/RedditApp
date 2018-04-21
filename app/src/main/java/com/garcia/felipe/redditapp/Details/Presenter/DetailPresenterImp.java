@@ -16,6 +16,8 @@ public class DetailPresenterImp implements DetailPresenter {
     public void onCreate(RedditPost item) {
         if (item != null){
             view.setTitle(item.getTitle());
+            view.setDate(item.getDate());
+            view.setCategory(item.getCategory());
             view.setImage(item.getBannerImageURL());
             view.setDescription(item.getLongDescription());
         }

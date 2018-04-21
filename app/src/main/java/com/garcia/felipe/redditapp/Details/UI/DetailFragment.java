@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,10 @@ public class DetailFragment extends Fragment implements DetailFragmentUI{
     private DetailPresenter detailPresenter;
 
     @BindView(R.id.titleDetails) TextView titleDetails;
+    @BindView(R.id.categoryDetails)
+    TextView categoryDetails;
+    @BindView(R.id.dateDetails)
+    TextView dateDetails;
     @BindView(R.id.descriptionDetails) TextView descriptionDetails;
     @BindView(R.id.bannerImage) ImageView bannerImage;
 
@@ -64,17 +69,23 @@ public class DetailFragment extends Fragment implements DetailFragmentUI{
     public void setDescription(String description) {
         if (description != null){
             descriptionDetails.setText(Html.fromHtml(description));
+            descriptionDetails.setMovementMethod(LinkMovementMethod.getInstance());
         }
+    }
+
+    @Override
+    public void setDate(String string) {
+        dateDetails.setText(string);
+    }
+
+    @Override
+    public void setCategory(String string) {
+        categoryDetails.setText(string);
     }
 
     @Override
     public void setImage(String urlImage) {
         Glide.with(this).load(urlImage).into(bannerImage);
-    }
-
-    @Override
-    public void setCategory(String category) {
-
     }
 
 }

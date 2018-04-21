@@ -7,7 +7,7 @@ import com.garcia.felipe.redditapp.Helpers.EventBus.GreenRobotEventBus;
 import com.garcia.felipe.redditapp.HomeList.Events.ImageEvent;
 
 
-public class ImageEventPostHelper {
+class ImageEventPostHelper {
 
     private int requestCode;
     private int resultCode;

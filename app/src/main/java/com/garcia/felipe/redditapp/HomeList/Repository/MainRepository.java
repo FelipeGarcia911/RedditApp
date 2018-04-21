@@ -4,7 +4,7 @@ import com.garcia.felipe.redditapp.Models.RedditPost;
 
 import java.util.ArrayList;
 
-public interface MainRepository {
+interface MainRepository {
 
     void getDataFromServer();
 

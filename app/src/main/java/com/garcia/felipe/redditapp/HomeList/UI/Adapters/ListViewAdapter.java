@@ -1,11 +1,10 @@
 package com.garcia.felipe.redditapp.HomeList.UI.Adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.garcia.felipe.redditapp.Helpers.Image.ImageLoader;
@@ -54,7 +53,11 @@ public class ListViewAdapter extends RecyclerView.Adapter {
         private final View view;
         @BindView(R.id.title) TextView title;
         @BindView(R.id.shortDescription) TextView shortDescription;
+        @BindView(R.id.category)
+        TextView category;
         @BindView(R.id.thumbnailImage) CircleImageView thumbnailImage;
+        @BindView(R.id.progressBar)
+        ProgressBar progressBar;
 
         ItemViewHolder(View itemView) {
             super(itemView);
@@ -81,28 +84,30 @@ public class ListViewAdapter extends RecyclerView.Adapter {
 
         @Override
         public void setTitle(String string) {
-            title.setText(Html.fromHtml(string));
+            title.setText(string);
         }
 
         @Override
         public void setDescription(String string) {
-            shortDescription.setText(Html.fromHtml(string));
+            shortDescription.setText(string);
         }
 
         @Override
         public void setImage(String string) {
-            imageLoader.load(thumbnailImage, string);
+            imageLoader.load(thumbnailImage, string, progressBar);
+        }
+
+        @Override
+        public void setCategory(String string) {
+            category.setText(string);
         }
 
         void setItemData(RedditPost redditPost, OnItemClickListener onItemClickListener) {
-            String title = redditPost.getTitle();
-            String shortDescription = redditPost.getShortDescription();
-            String urlImage = redditPost.getIconImageURL();
-
-            setTitle(title);
-            setDescription(shortDescription);
-            setImage(urlImage);
-            setClickListener(redditPost, onItemClickListener);
+//            setTitle(redditPost.getTitle());
+//            setCategory(redditPost.getCategory());
+//            setDescription(redditPost.getShortDescription());
+//            setImage(redditPost.getIconImageURL());
+//            setClickListener(redditPost, onItemClickListener);
         }
     }
 }
